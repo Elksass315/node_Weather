@@ -1,0 +1,24 @@
+{
+  "name": "node_weather",
+  "version": "1.0.0",
+  "description": "Weather forcecasting app that fetches real-time weather data based on the user's location.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "JWT",
+    "weather"
+  ],
+  "author": "Elksass315",
+  "license": "ISC",
+  "dependencies": {
+    "config": "^3.3.12",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.1",
+    "winston": "^3.14.2"
+  }
+}
