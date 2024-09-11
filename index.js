@@ -8,7 +8,8 @@ require('./startup/logging')();
 
 const port = process.env.PORT || config.get('port') || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`Listening on port ${port}...`);
 });
 
+module.exports = server;
