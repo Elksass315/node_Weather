@@ -1,15 +1,16 @@
-const express = require('express');
-const config = require('config');
+import express from "express";
+import config from "config";
+import routesStartup from "./startup/routes.js";
+import DB_Startup from "./startup/DB.js";
+import loggingStartup from "./startup/logging.js";
 const app = express();
 
-require('./startup/routes')(app);
-require('./startup/db')();
-require('./startup/logging')();
+routesStartup(app);
+DB_Startup();
+loggingStartup();
 
-const port = process.env.PORT || config.get('port') || 3000;
+const PORT = config.get("port") || 3000;
 
-const server = app.listen(port, () => {
-    console.log(`Listening on port ${port}...`);
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });
-
-module.exports = server;

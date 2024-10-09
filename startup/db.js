@@ -1,12 +1,12 @@
-const mongoose = require("mongoose");
-const config = require("config");
-const winston = require("winston");
+import mongoose from "mongoose";
+import config from "config";
+import winston from "winston";
 
-module.exports = function () {
-    mongoose.connect(config.get("db"),
-    ).then(() => {
-        console.log('Connected to MongoDB');
-    }).catch((err) => {
-        console.error('Error connecting to MongoDB:', err.message);
-    });
+export default function () {
+    mongoose.connect(
+        config.get("db"))
+        .then(() => {
+            winston.info(`DB Connected to ${config.get("db")}`);
+            console.log(`DB Connected to ${config.get("db")}`);
+        });
 }

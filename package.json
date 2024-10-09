@@ -1,19 +1,14 @@
 {
   "name": "node_weather",
   "version": "1.0.0",
-  "description": "Weather forcecasting app that fetches real-time weather data based on the user's location.",
+  "description": "Node.js backend app that retrieves weather data and allows users to add cities to their favorites, utilizing Redis for caching.",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "jest --verbose --coverage",
     "dev": "nodemon index.js"
   },
-  "keywords": [
-    "node",
-    "express",
-    "JWT",
-    "weather"
-  ],
-  "author": "Elksass315",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",
