@@ -1,0 +1,222 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API Documentation",
+    "description": "API documentation for User, Weather, and Favorite City routes."
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": ["http"],
+  "paths": {
+    "/api/user/me": {
+      "get": {
+        "tags": ["User"],
+        "summary": "Get current user details",
+        "description": "Returns the details of the authenticated user.",
+        "security": [{"BearerAuth": []}],
+        "responses": {
+          "200": {
+            "description": "User details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "_id": { "type": "string" },
+                "fullName": { "type": "string" },
+                "email": { "type": "string" },
+                "phoneNumber": { "type": "string" }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" }
+        }
+      }
+    },
+    "api/user/rfegister": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Register a new user",
+        "description": "Registers a new user and returns the user details and token.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": { "type": "string" },
+                "email": { "type": "string" },
+                "password": { "type": "string" },
+                "phoneNumber": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "User registered" },
+          "400": { "description": "User already registered" }
+        }
+      }
+    },
+    "/api/user/update-password": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Update user password",
+        "description": "Changes the password of the authenticated user.",
+        "security": [{"BearerAuth": []}],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Password updated" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/user/{id}": {
+      "put": {
+        "tags": ["User"],
+        "summary": "Update user details",
+        "description": "Updates the fullName and/or phoneNumber of a user.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": { "type": "string" },
+                "phoneNumber": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "User updated" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/weather": {
+      "get": {
+        "tags": ["Weather"],
+        "summary": "Get weather data",
+        "description": "Returns the weather data for a given city.",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Weather data" },
+          "400": { "description": "City is required" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/favorite/": {
+      "post": {
+        "tags": ["Favorite"],
+        "summary": "Add city to favorites",
+        "description": "Adds a city to the user's favorite cities.",
+        "security": [{"BearerAuth": []}],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "city": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "City added to favorites" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "api/favorite": {
+      "delete": {
+        "tags": ["Favorite"],
+        "summary": "Remove city from favorites",
+        "description": "Removes a city from the user's favorite cities.",
+        "security": [{"BearerAuth": []}],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "city": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "City removed from favorites" },
+          "500": { "description": "Server error" }
+        }
+      }
+    },
+    "/api/auth/": {
+      "post": {
+        "tags": ["Auth"],
+        "summary": "Authenticate user",
+        "description": "Authenticates a user and returns a token.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": { "type": "string" },
+                "password": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Authentication successful" },
+          "400": { "description": "Invalid email or password" }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "BearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Enter JWT token as 'Bearer {token}'"
+    }
+  }
+}
